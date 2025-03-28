@@ -75,6 +75,8 @@ if __name__ == '__main__':
     parser.add_argument('--test_flop', action='store_true', default=False, help='See utils/tools for usage')
 
     # CATS
+    parser.add_argument('--exp_name', type=str, required=False, default='logits',
+                        help='experiment name, options:[logits, any other]')
     parser.add_argument('--QAM_start', type=float, default=0.1, help='masking start probability')
     parser.add_argument('--QAM_end', type=float, default=0.3, help='masking end probability')
     parser.add_argument('--patch_len', type=int, default=24, help='patch length')
@@ -96,7 +98,10 @@ if __name__ == '__main__':
     print('Args in experiment:')
     print(args)
 
-    Exp = Exp_Main
+    if args.exp_name == 'logits':
+        Exp = Exp_Logits_Forecast
+    else:
+        Exp = Exp_Main
     print('check')
     if args.is_training:
         for ii in range(args.itr):
