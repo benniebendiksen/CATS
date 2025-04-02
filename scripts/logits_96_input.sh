@@ -5,8 +5,17 @@ export PATH="$HOME/.pyenv/versions/3.10.16/bin:$PATH"
 export PYENV_VERSION=3.10.16
 
 # Debugging: Ensure the right Python version is being used
-echo "Using Python from: $(which python)"
-echo "Python version: $(python --version)"
+echo "============================================================"
+echo "Checking Python version..."
+echo "Expected Python version: 3.10.16"
+current_python_version=$(python --version)
+echo "Current Python version: $current_python_version"
+
+# Safety check: Ensure the correct Python version is active
+if [[ "$current_python_version" != *"3.10.16"* ]]; then
+  echo "Error: Expected Python version 3.10.16, but found $current_python_version."
+  exit 1
+fi
 
 # Check if the correct version of PyTorch is available
 python -c "import torch; print('Torch version:', torch.__version__)"
