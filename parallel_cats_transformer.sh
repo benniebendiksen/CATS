@@ -17,6 +17,8 @@
 #SBATCH --error=slurm_outputs/cats_%A_%a.err
 #SBATCH --array=0-1                # 0 = benchmark datasets, 1 = logits dataset
 
+. /etc/profile
+
 # Activate pyenv environment
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
