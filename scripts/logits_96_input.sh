@@ -39,18 +39,13 @@ if [[ "$active_python_version" != *"3.10.16"* ]]; then
   exit 1
 fi
 
-# Check if required packages are installed from requirements.txt
-requirements_file="./requirements.txt"
+# Check if required packages are installed
+echo "Checking if necessary packages are installed..."
 
-# If requirements.txt exists and has not been installed yet, install packages
-if [[ -f "$requirements_file" ]]; then
-  echo "Checking if requirements are installed from $requirements_file..."
+# Install missing packages: torch, numpy, pandas, matplotlib, scikit-learn
+pip install torch==1.11.0 numpy==1.21.6 pandas==1.5.3 matplotlib==3.7.0 scikit-learn==1.5.1
 
-  # Install missing dependencies
-  pip freeze | grep -q -f "$requirements_file" || pip install -r "$requirements_file"
-else
-  echo "Warning: requirements.txt not found. Skipping package installation."
-fi
+
 
 # Check if the correct version of PyTorch is available
 python -c "import torch; print('Torch version:', torch.__version__)"
