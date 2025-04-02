@@ -19,14 +19,14 @@ fi
 
 # Activate the virtual environment
 pyenv activate pyenv_gpu_env
-echo "Activated pyenv environment: $(pyenv version-name)"
+echo "Activated pyenv environment (again): $(pyenv version-name)"
 
 
-# Check if pyenv environment is active
-if [[ -z "$PYENV_VERSION" || "$PYENV_VERSION" != "3.10.16" ]]; then
-  echo "Error: pyenv environment is not correctly activated."
-  exit 1
-fi
+## Check if pyenv environment is active
+#if [[ -z "$PYENV_VERSION" || "$PYENV_VERSION" != "3.10.16" ]]; then
+#  echo "Error: pyenv environment is not correctly activated."
+#  exit 1
+#fi
 
 # Debugging: Ensure the right Python version is being used
 echo "Using Python from: $(which python)"
