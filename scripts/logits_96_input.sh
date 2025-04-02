@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Deactivate Conda if it is active
-conda deactivate
-
 # Set up Pyenv with the desired Python version
 export PATH="$HOME/.pyenv/versions/3.10.16/bin:$PATH"
 export PYENV_VERSION=3.10.16
