@@ -1,11 +1,11 @@
 import os
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import torch
 import torch.nn as nn
 from exp.exp_main import Exp_Main
+from exp.exp_logits_forecasting import Exp_Logits_Forecast
 import random
 from utils.tools import StandardScaler
 import torch.nn.functional as F
@@ -74,9 +74,16 @@ if __name__ == '__main__':
     parser.add_argument('--devices', type=str, default='0,1,2,3', help='device ids of multile gpus')
     parser.add_argument('--test_flop', action='store_true', default=False, help='See utils/tools for usage')
 
-    # CATS
+    # CATS custom
     parser.add_argument('--exp_name', type=str, required=False, default='logits',
                         help='experiment name, options:[logits, any other]')
+    parser.add_argument('--is_shorting', type=int, default=1,
+                        help='whether shorting is enabled (1 for true, 0 for false)')
+    parser.add_argument('--precision_factor', type=float, default=2.0,
+                        help='factor to adjust precision weighting')
+    parser.add_argument('--auto_weight', type=int, default=1,
+                        help='automatically adjust weighting if set to 1')
+    # CATS
     parser.add_argument('--QAM_start', type=float, default=0.1, help='masking start probability')
     parser.add_argument('--QAM_end', type=float, default=0.3, help='masking end probability')
     parser.add_argument('--patch_len', type=int, default=24, help='patch length')

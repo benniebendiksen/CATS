@@ -1,0 +1,6 @@
+1_btcusdt_pca_components_12h_60_07_05_96_1_63_CATS_logits_sl96_pl1_dm128_nh16_dl3_df256_qiTrue_0  
+Trading Strategy: Shorting enabled
+Classification - Accuracy: 58.33%, Precision: 61.76%, Recall: 43.75%, F1: 51.22%
+Trading - Win Rate: 58.33%, Profit Factor: 1.40
+
+
