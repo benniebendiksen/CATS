@@ -1,20 +1,33 @@
 #!/bin/bash
 
-# Set up Pyenv with the desired Python version
-export PATH="$HOME/.pyenv/versions/3.10.16/bin:$PATH"
-export PYENV_VERSION=3.10.16
+# Check if pyenv environment is active
+if [[ -z "$PYENV_VERSION" || "$PYENV_VERSION" != "3.10.16" ]]; then
+  echo "Error: pyenv environment is not correctly activated."
+  exit 1
+fi
 
 # Debugging: Ensure the right Python version is being used
-echo "============================================================"
-echo "Checking Python version..."
-echo "Expected Python version: 3.10.16"
-current_python_version=$(python --version)
-echo "Current Python version: $current_python_version"
+echo "Using Python from: $(which python)"
+echo "Python version: $(python --version)"
 
-# Safety check: Ensure the correct Python version is active
-if [[ "$current_python_version" != *"3.10.16"* ]]; then
-  echo "Error: Expected Python version 3.10.16, but found $current_python_version."
+# Safety check: Verify that the correct Python version is active
+active_python_version=$(python --version 2>&1)
+if [[ "$active_python_version" != *"3.10.16"* ]]; then
+  echo "Error: Expected Python version 3.10.16, but found $active_python_version."
   exit 1
+fi
+
+# Check if required packages are installed from requirements.txt
+requirements_file="./requirements.txt"
+
+# If requirements.txt exists and has not been installed yet, install packages
+if [[ -f "$requirements_file" ]]; then
+  echo "Checking if requirements are installed from $requirements_file..."
+
+  # Install missing dependencies
+  pip freeze | grep -q -f "$requirements_file" || pip install -r "$requirements_file"
+else
+  echo "Warning: requirements.txt not found. Skipping package installation."
 fi
 
 # Check if the correct version of PyTorch is available
