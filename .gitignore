@@ -2,9 +2,12 @@
 /dataset/
 /results/
 /test_results/
+slurm_outputs/
 # Jupyter Notebook
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+
+
 
 # Python cache files
 __pycache__/
