@@ -34,6 +34,10 @@ if [[ "$active_python_version" != *"3.10.16"* ]]; then
   exit 1
 fi
 
+# Activate the virtual environment
+pyenv activate pyenv_gpu_env
+echo "Activated pyenv environment: $(pyenv version-name)"
+
 echo "Job started at $(date)"
 echo "Running on host: $(hostname)"
 echo "Using $SLURM_CPUS_ON_NODE CPUs"
