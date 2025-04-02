@@ -1,8 +1,25 @@
 #!/bin/bash
 
+# Activate pyenv environment
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Set the desired Python version via pyenv
+export PYENV_VERSION=3.10.16
+
+# Safety check: Verify that the correct Python version is active
+active_python_version=$(python --version 2>&1)
+if [[ "$active_python_version" != *"3.10.16"* ]]; then
+  echo "Error: Expected Python version 3.10.16, but found $active_python_version."
+  exit 1
+fi
+
 # Activate the virtual environment
 pyenv activate pyenv_gpu_env
-echo "Activated pyenv environment (again): $(pyenv version-name)"
+echo "Activated pyenv environment: $(pyenv version-name)"
 
 
 # Check if pyenv environment is active
