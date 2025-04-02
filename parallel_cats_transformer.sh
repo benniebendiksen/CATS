@@ -18,32 +18,22 @@
 #SBATCH --array=0-1                # 0 = benchmark datasets, 1 = logits dataset
 
 . /etc/profile
+eval "$(conda shell.bash hook)"
+conda activate gpu_env_copy_2
+echo "Activated Conda environment: $(conda info --envs | grep \*)"
 
-# Activate pyenv environment
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# Check if required packages are installed
+echo "Checking if necessary packages are installed..."
 
-# Set the desired Python version via pyenv
-export PYENV_VERSION=3.10.16
-
-# Safety check: Verify that the correct Python version is active
-active_python_version=$(python --version 2>&1)
-if [[ "$active_python_version" != *"3.10.16"* ]]; then
-  echo "Error: Expected Python version 3.10.16, but found $active_python_version."
-  exit 1
-fi
-
-# Activate the virtual environment
-pyenv activate pyenv_gpu_env
-echo "Activated pyenv environment: $(pyenv version-name)"
+# Install missing packages: torch, numpy, pandas, matplotlib, scikit-learn
+pip install torch==1.11.0 numpy==1.21.6 pandas==1.5.3 matplotlib==3.7.0 scikit-learn==1.5.1
 
 echo "Job started at $(date)"
 echo "Running on host: $(hostname)"
 echo "Using $SLURM_CPUS_ON_NODE CPUs"
 echo "Using SLURM_ARRAY_TASK_ID: $SLURM_ARRAY_TASK_ID"
+
+
 
 # Function to run benchmark datasets on GPU 0
 run_benchmark_datasets() {

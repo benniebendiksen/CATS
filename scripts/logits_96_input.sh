@@ -1,37 +1,8 @@
 #!/bin/bash
 
-# Activate pyenv environment
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-# Set the desired Python version via pyenv
-export PYENV_VERSION=3.10.16
-
-# Safety check: Verify that the correct Python version is active
-active_python_version=$(python --version 2>&1)
-if [[ "$active_python_version" != *"3.10.16"* ]]; then
-  echo "Error: Expected Python version 3.10.16, but found $active_python_version."
-  exit 1
-fi
-
-# Activate the virtual environment (forcefully if needed)
-pyenv activate pyenv_gpu_env || pyenv virtualenvs
-
-# Debugging: Check if the correct environment is activated
-echo "Activated pyenv environment: $(pyenv version-name)"
-
 # Ensure that the correct Python version is being used in the virtual environment
 echo "Using Python from: $(which python)"
 echo "Python version: $(python --version)"
-
-# Check if required packages are installed
-echo "Checking if necessary packages are installed..."
-
-# Install missing packages: torch, numpy, pandas, matplotlib, scikit-learn
-pip install torch==1.11.0 numpy==1.21.6 pandas==1.5.3 matplotlib==3.7.0 scikit-learn==1.5.1
 
 
 
