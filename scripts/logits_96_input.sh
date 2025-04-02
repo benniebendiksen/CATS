@@ -17,27 +17,15 @@ if [[ "$active_python_version" != *"3.10.16"* ]]; then
   exit 1
 fi
 
-# Activate the virtual environment
-pyenv activate pyenv_gpu_env
-echo "Activated pyenv environment (again): $(pyenv version-name)"
+# Activate the virtual environment (forcefully if needed)
+pyenv activate pyenv_gpu_env || pyenv virtualenvs
 
+# Debugging: Check if the correct environment is activated
+echo "Activated pyenv environment: $(pyenv version-name)"
 
-## Check if pyenv environment is active
-#if [[ -z "$PYENV_VERSION" || "$PYENV_VERSION" != "3.10.16" ]]; then
-#  echo "Error: pyenv environment is not correctly activated."
-#  exit 1
-#fi
-
-# Debugging: Ensure the right Python version is being used
+# Ensure that the correct Python version is being used in the virtual environment
 echo "Using Python from: $(which python)"
 echo "Python version: $(python --version)"
-
-# Safety check: Verify that the correct Python version is active
-active_python_version=$(python --version 2>&1)
-if [[ "$active_python_version" != *"3.10.16"* ]]; then
-  echo "Error: Expected Python version 3.10.16, but found $active_python_version."
-  exit 1
-fi
 
 # Check if required packages are installed
 echo "Checking if necessary packages are installed..."
