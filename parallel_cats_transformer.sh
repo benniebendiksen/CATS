@@ -13,8 +13,8 @@
 #SBATCH --export=HOME              # Export HOME environment variable for miniconda access
 #SBATCH --mem=64G                  # 64GB memory
 #SBATCH -t 3-23:59:59              # near 4 days runtime
-#SBATCH --output=slurm_outputs/itransformer_%A_%a.out
-#SBATCH --error=slurm_outputs/itransformer_%A_%a.err
+#SBATCH --output=slurm_outputs/cats_%A_%a.out
+#SBATCH --error=slurm_outputs/cats_%A_%a.err
 #SBATCH --array=0-1                # 0 = benchmark datasets, 1 = logits dataset
 
 # Activate pyenv environment
